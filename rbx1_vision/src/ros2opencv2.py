@@ -103,8 +103,8 @@ class ROS2OpenCV2(object):
         
         # Subscribe to the image and depth topics and set the appropriate callbacks
         # The image topic names can be remapped in the appropriate launch file
-        self.image_sub = rospy.Subscriber("input_rgb_image", Image, self.image_callback)
-        self.depth_sub = rospy.Subscriber("input_depth_image", Image, self.depth_callback)
+        self.image_sub = rospy.Subscriber("input_rgb_image", Image, self.image_callback , None , 1)
+        self.depth_sub = rospy.Subscriber("input_depth_image", Image, self.depth_callback , None , 1))
                                     
     def on_mouse_click(self, event, x, y, flags, param):
         # This function allows the user to selection a ROI using the mouse
