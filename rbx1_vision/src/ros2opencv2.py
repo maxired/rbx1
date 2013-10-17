@@ -37,6 +37,7 @@ from sensor_msgs.msg import Image, RegionOfInterest, CameraInfo
 from cv_bridge import CvBridge, CvBridgeError
 import time
 import numpy as np
+from rbx1_vision.srv import  *
 
 class ROS2OpenCV2(object):
     def __init__(self, node_name):        
@@ -87,6 +88,7 @@ class ROS2OpenCV2(object):
         self.resize_window_height = 0
         self.face_tracking = False
         
+        self.running = False;
         # Create the main display window
         self.cv_window_name = self.node_name
         cv.NamedWindow(self.cv_window_name, cv.CV_WINDOW_NORMAL)
@@ -104,8 +106,14 @@ class ROS2OpenCV2(object):
         # Subscribe to the image and depth topics and set the appropriate callbacks
         # The image topic names can be remapped in the appropriate launch file
         self.image_sub = rospy.Subscriber("input_rgb_image", Image, self.image_callback , None , 1)
-        self.depth_sub = rospy.Subscriber("input_depth_image", Image, self.depth_callback , None , 1))
+        self.depth_sub = rospy.Subscriber("input_depth_image", Image, self.depth_callback , None , 1)
                                     
+        rospy.Service('setTrackingState', SetState, self.on_set_state)
+
+    def on_set_state(self, data):
+        self.running=data.state;
+        return SetStateResponse( data.state );  
+        
     def on_mouse_click(self, event, x, y, flags, param):
         # This function allows the user to selection a ROI using the mouse
         if self.frame is None:
@@ -161,8 +169,10 @@ class ROS2OpenCV2(object):
             self.marker_image = np.zeros_like(self.marker_image)
         
         # Process the image to detect and track objects or features
-        processed_image = self.process_image(frame)
-        
+        if self.running :
+            processed_image = self.process_image(frame)
+        else:
+            processed_image = frame
         # If the result is a greyscale image, convert to 3-channel for display purposes """
         #if processed_image.channels == 1:
             #cv.CvtColor(processed_image, self.processed_image, cv.CV_GRAY2BGR)
