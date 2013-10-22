@@ -64,7 +64,7 @@ class FromOpenCV2(threading.Thread):
         self.resize_window_height = 0
         self.face_tracking = False
         
-        self.running = False;
+        self.running = True;
         # Create the main display window
         self.cv_window_name = self.node_name
         cv.NamedWindow(self.cv_window_name, cv.CV_WINDOW_NORMAL)
@@ -98,7 +98,6 @@ class FromOpenCV2(threading.Thread):
 
       while rval:
         rval, frame = self.vc.read()
-        print "calloing image callback"
         self.image_callback( frame);
       print "Reading camera thread just quit."
 

@@ -24,13 +24,12 @@ import roslib; roslib.load_manifest('rbx1_vision')
 import rospy
 import cv2
 import cv2.cv as cv
-from ros2opencv2 import ROS2OpenCV2
+from fromopencv2 import FromOpenCV2
 import numpy as np
 
-class GoodFeatures(ROS2OpenCV2):
+class GoodFeatures(FromOpenCV2):
     def __init__(self, node_name): 
-        super(GoodFeatures, self).__init__(node_name)
-          
+        super(GoodFeatures, self).__init__(node_name) 
         # Do we show text on the display?
         self.show_text = rospy.get_param("~show_text", True)
         
@@ -44,7 +43,7 @@ class GoodFeatures(ROS2OpenCV2):
         self.gf_blockSize = rospy.get_param("~gf_blockSize", 10)
         self.gf_useHarrisDetector = rospy.get_param("~gf_useHarrisDetector", True)
         self.gf_k = rospy.get_param("~gf_k", 0.04)
-        
+
         # Store all parameters together for passing to the detector
         self.gf_params = dict(maxCorners = self.gf_maxCorners, 
                        qualityLevel = self.gf_qualityLevel,

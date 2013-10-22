@@ -34,7 +34,6 @@ from lk_tracker import LKTracker
 class FaceTracker(FaceDetector, LKTracker):
     def __init__(self, node_name):
         super(FaceTracker, self).__init__(node_name)
-        
         self.n_faces = rospy.get_param("~n_faces", 1)
         self.show_text = rospy.get_param("~show_text", True)
         self.show_add_drop = rospy.get_param("~show_add_drop", False)
@@ -88,11 +87,9 @@ class FaceTracker(FaceDetector, LKTracker):
                   
                 # Step 3: If we have keypoints, track them using optical flow
                 self.track_box = self.track_keypoints(self.grey, self.prev_grey)
-              
                 # Step 4: Drop keypoints that are too far from the main cluster
                 if self.frame_index % self.drop_keypoints_interval == 0 and len(self.keypoints) > 0:
                     ((cog_x, cog_y, cog_z), mse_xy, mse_z, score) = self.drop_keypoints(self.abs_min_keypoints, self.std_err_xy, self.max_mse)
-                    
                     if score == -1:
                         self.detect_box = None
                         self.track_box = None
@@ -106,6 +103,8 @@ class FaceTracker(FaceDetector, LKTracker):
                     self.frame_index += 1
                     self.expand_roi = self.expand_roi_init
             
+
+
             # Store a copy of the current grey image used for LK tracking            
             self.prev_grey = self.grey
               

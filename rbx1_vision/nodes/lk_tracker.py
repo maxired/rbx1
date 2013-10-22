@@ -30,7 +30,7 @@ from good_features import GoodFeatures
 class LKTracker(GoodFeatures):
     def __init__(self, node_name):
         super(LKTracker, self).__init__(node_name)
-        
+
         self.show_text = rospy.get_param("~show_text", True)
         self.feature_size = rospy.get_param("~feature_size", 1)
                 
@@ -102,7 +102,7 @@ class LKTracker(GoodFeatures):
         
         # Calculate the optical flow from the previous frame to the current frame
         p1, st, err = cv2.calcOpticalFlowPyrLK(img0, img1, p0, None, **self.lk_params)
-        
+
         # Do the reverse calculation: from the current frame to the previous frame
         try:
             p0r, st, err = cv2.calcOpticalFlowPyrLK(img1, img0, p1, None, **self.lk_params)
@@ -139,7 +139,7 @@ class LKTracker(GoodFeatures):
                 track_box = cv2.boundingRect(keypoints_matrix)
         except:
             track_box = None
-                        
+                       
         return track_box
     
 if __name__ == '__main__':

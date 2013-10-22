@@ -31,7 +31,7 @@ from fromopencv2 import FromOpenCV2
 class FaceDetector(FromOpenCV2):
     def __init__(self, node_name):
         super(FaceDetector, self).__init__(node_name)
-                  
+        print 'init face detecto'          
         # Get the paths to the cascade XML files for the Haar detectors.
         # These are set in the launch file.
         cascade_1 = rospy.get_param("~cascade_1", "")
