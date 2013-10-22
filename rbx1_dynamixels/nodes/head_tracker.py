@@ -87,12 +87,14 @@ class HeadTracker():
         
         self.last_tilt_speed = 0
         self.last_pan_speed = 0
-        
-        # Wait for messages on the three topics we need to monitor
+       
+	#Wait for messages on the three topics we need to monitor
         rospy.loginfo("Waiting for roi and camera_info topics...")
-        rospy.wait_for_message('camera_info', CameraInfo)
+        #rospy.wait_for_message('camera_info', CameraInfo)
         rospy.wait_for_message('joint_states', JointState)
+        rospy.loginfo("Waiting for roi topics...")
         rospy.wait_for_message('roi', RegionOfInterest)
+        rospy.loginfo("Done Waiting ")
         
         # Monitor the joint states of the pan and tilt servos
         self.joint_state = JointState()
@@ -103,11 +105,13 @@ class HeadTracker():
             rospy.sleep(1)
 
         # Subscribe to camera_info topics and set the callback
-        self.image_width = self.image_height = 0
         rospy.Subscriber('camera_info', CameraInfo, self.get_camera_info)
-        
+        self.image_width = 320
+	self.image_height = 240
+        #
         # Wait until we actually have the camera data
         while self.image_width == 0 or self.image_height == 0:
+            rospy.loginfo("looping ainting for width of height")
             rospy.sleep(1)
             
         # Subscribe to roi topics and set the callback
