@@ -316,8 +316,9 @@ class FaceTracker(FaceDetector, LKTracker):
 if __name__ == '__main__':
     try:
         node_name = "face_tracker"
-        FaceTracker(node_name)
+        tracker = FaceTracker(node_name)
+        tracker.start()        
         rospy.spin()
     except KeyboardInterrupt:
-        print "Shutting down face tracker node."
+        #print "Shutting down face tracker node."
         cv.DestroyAllWindows()

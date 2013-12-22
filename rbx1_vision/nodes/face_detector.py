@@ -26,9 +26,9 @@ import roslib; roslib.load_manifest('rbx1_vision')
 import rospy
 import cv2
 import cv2.cv as cv
-from ros2opencv2 import ROS2OpenCV2
+from fromopencv2 import FromOpenCV2
 
-class FaceDetector(ROS2OpenCV2):
+class FaceDetector(FromOpenCV2):
     def __init__(self, node_name):
         super(FaceDetector, self).__init__(node_name)
                   
