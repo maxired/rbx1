@@ -106,8 +106,8 @@ class HeadTracker():
 
         # Subscribe to camera_info topics and set the callback
         rospy.Subscriber('camera_info', CameraInfo, self.get_camera_info)
-        self.image_width = 320
-	self.image_height = 240
+        self.image_width = 160
+    	self.image_height = 120
         #
         # Wait until we actually have the camera data
         while self.image_width == 0 or self.image_height == 0:

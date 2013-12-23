@@ -87,8 +87,10 @@ class FromOpenCV2(threading.Thread):
         rospy.Service('setTrackingState', SetState, self.on_set_state)
 
         self.vc = cv2.VideoCapture(0)
-        self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_WIDTH  , 320 ) ;
-        self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_HEIGHT  , 240 ) ;
+        #self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_WIDTH  , 320 ) ;
+        self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_WIDTH  , 160 ) ;
+        #self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_HEIGHT  , 240 ) ;
+        self.vc.set( cv2.cv.CV_CAP_PROP_FRAME_HEIGHT  , 120 ) ;
 
     def run(self):
       if self.vc.isOpened(): # try to get the first frame
